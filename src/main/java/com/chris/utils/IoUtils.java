@@ -82,7 +82,10 @@ public class IoUtils {
      * @return
      */
     public static File writeTxtFile(String filePath, String content) {
-        File saveFile = new File(filePath); // 相对路径，如果没有则要建立一个新的output。txt文件
+        File saveFile = new File(filePath); // 相对路径，如果没有则要建立一个新的output.txt文件
+        if (!saveFile.getParentFile().exists()){//创建文件夹
+            saveFile.getParentFile().mkdirs();
+        }
         try {
             saveFile.createNewFile(); // 创建新文件
             BufferedWriter out = new BufferedWriter(new FileWriter(saveFile));

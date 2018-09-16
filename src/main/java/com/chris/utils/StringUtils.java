@@ -24,19 +24,40 @@ public class StringUtils {
     }
 
     /**
+     * 获得驼峰格式
+     *
+     * @param str
+     * @return
+     */
+    public static String getCamel(String str) {
+        //先把字符串全变为小写
+        return translateToCamel(str.toLowerCase());
+    }
+
+    /**
+     * 转换为驼峰格式
+     *
+     * @param str
+     * @return
+     */
+    public static String translateToCamel(String str) {
+        int i = str.indexOf("_");
+        char c = str.charAt(i + 1);
+        str = str.replace("_" + c, String.valueOf(c).toUpperCase());
+        if (i < 0) {
+            return str;
+        }
+        return translateToCamel(str);
+    }
+
+    /**
      * 获得小驼峰格式
      *
      * @param str
      * @return
      */
     public static String getLowerCamel(String str) {
-        int i = str.indexOf("_");
-        char c = str.charAt(i + 1);
-        str = str.replace("_" + c, String.valueOf(c).toUpperCase());
-        if (i < 0) {
-            return lowerFirstLetter(str);
-        }
-        return getLowerCamel(str);
+        return lowerFirstLetter(getCamel(str));
     }
 
     /**
@@ -46,7 +67,7 @@ public class StringUtils {
      * @return
      */
     public static String getUpperCamel(String str) {
-        return upperFirstLetter(getLowerCamel(str));
+        return upperFirstLetter(getCamel(str));
     }
 
     /**
