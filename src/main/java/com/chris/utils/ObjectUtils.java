@@ -1,11 +1,8 @@
 package com.chris.utils;
 
 import java.lang.reflect.Field;
-import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * YuedaoXingApi
@@ -67,6 +64,43 @@ public class ObjectUtils {
                 //4-2. 复制字段
                 copyFieldValue(sourceObj, targetObj, f1, f2);
             }
+        }
+    }
+
+    /**
+     * 复制列表
+     *
+     * @param sourceObjList
+     * @param targetClass
+     * @param <T1>
+     * @param <T2>
+     * @return
+     */
+    public static <T1, T2> List<T2> copyDataList(List<T1> sourceObjList, Class<T2> targetClass) {
+        List<T2> targetObjList = new ArrayList<>();
+        if (sourceObjList == null || targetClass == null) {
+            return null;
+        }
+        for (T1 t : sourceObjList) {
+            targetObjList.add(copyData(t, targetClass));
+        }
+        return targetObjList;
+    }
+
+    /**
+     * 复制列表
+     *
+     * @param sourceObjList
+     * @param targetObjList
+     * @param <T1>
+     * @param <T2>
+     */
+    public static <T1, T2> void copyDataList(List<T1> sourceObjList, List<T2> targetObjList, Class<T2> targetClass) {
+        if (sourceObjList == null || targetObjList == null) {
+            return;
+        }
+        for (T1 t : sourceObjList) {
+            targetObjList.add(copyData(t, targetClass));
         }
     }
 
